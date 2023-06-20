@@ -83,6 +83,12 @@ struct MyApp : TopWindow {
 		//Forma ESFERA
 		d.DrawEllipse(caja, esphera, 7, Blue);
 	
+		//Ellipses de Circulo
+		
+		
+		//Linea de Radio
+		d.DrawText(tamaño + tamaño - 220, centerY - 50, "r = " + AsString(r), Arial(40));
+        d.DrawLine(centerX, centerY, tamaño + tamaño, centerY, 7, Red());
 		}
 
     MyApp() {
