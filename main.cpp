@@ -81,7 +81,7 @@ struct MyApp : TopWindow {
         d.DrawText(centerX - 120 + tamaño, size_y / 2 + 60, "V = " + AsString(FormatDouble(respuesta, 3)), Arial(70).Bold(), Green);
     
 		//Forma ESFERA
-		d.DrawEllipse(caja, esphera, 7, Blue);
+		d.DrawEllipse(caja, esfera, 7, Blue);
 	
 		//Ellipses de Circulo
 		
