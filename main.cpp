@@ -19,9 +19,9 @@ struct MyApp : TopWindow {
     Pointf centro2;
     Pointf centro3;
     Rect caja;
-    Rect caja2;
-    Rect caja3;
-    Color esphera;
+    Rect box2;
+    Rect box3;
+    Color esfera;
 
     virtual void Paint(Draw& d) override {
         //Calcular Values
@@ -37,13 +37,17 @@ struct MyApp : TopWindow {
         centro = Pointf(centerX - radio_circulo, centerY - radio_circulo);
         caja = Rect(Point(centro), Size(tamaño, tamaño));
         centro2 = Pointf(centerX - radio_circulo, (centerY - radio_circulo) + (desplazamiento / 2));
-        caja2 = Rect(Point(centro2), Size(tamaño, tamaño - desplazamiento));
+        box2 = Rect(Point(centro2), Size(tamaño, tamaño-100 - desplazamiento+70));
         centro3 = Pointf((centerX - radio_circulo) + (desplazamiento / 2), centerY - radio_circulo);
-        caja3 = Rect(Point(centro3), Size(tamaño - desplazamiento, tamaño));
-        esphera = Color(235, 175, 153);
+        box3 = Rect(Point(centro3), Size(tamaño-190 - desplazamiento+190, tamaño));
+        esfera = Color(235, 175, 153);
 
         //Fondo Blanco
         d.DrawRect(GetSize(), White());
+        
+        //Dimensiones
+        String resolucion = AsString(size_x) + " x " + AsString(size_y);
+        d.DrawText(size_x - GetTextSize(resolucion, Arial(30)).cx - 30, size_y - (margen_circulo * 5), resolucion, Arial(30), Gray());
         
         //Lineas Exteriores del Cuadro
         d.DrawLine(10, 5, size_x - 10, 5, 6, Black());// Borde Superior
@@ -81,10 +85,15 @@ struct MyApp : TopWindow {
         d.DrawText(centerX - 120 + tamaño, size_y / 2 + 60, "V = " + AsString(FormatDouble(respuesta, 3)), Arial(70).Bold(), Green);
     
 		//Forma ESFERA
-		d.DrawEllipse(caja, esfera, 7, Blue);
+		d.DrawEllipse(caja, esfera, 9, Blue);
 	
-		//Ellipses de Circulo
+		//Elipses Horizontales
+		d.DrawArc(box2, box2.CenterRight(), box2.CenterLeft(), PEN_DASHDOT, Blue());
+		d.DrawArc(box2, box2.CenterLeft(), box2.CenterRight(), 5, Blue());
 		
+		//Elipses Verticales
+		d.DrawArc(box3, box3.BottomCenter(), box3.TopCenter(), PEN_DASHDOT, Blue());
+		d.DrawArc(box3, box3.TopCenter(), box3.BottomCenter(), 5, Blue());
 		
 		//Linea de Radio
 		d.DrawText(tamaño + tamaño - 220, centerY - 50, "r = " + AsString(r), Arial(40));
@@ -93,7 +102,7 @@ struct MyApp : TopWindow {
 
     MyApp() {
         //Nombre de la Salida
-        Title("Volumen de Circulo - David Reyes, Josué Ham & Víctor Romero").Sizeable();
+        Title("Volumenes de Cuerpo en el Espacio por Grupo #2").Sizeable();
         int argc = CommandLine().GetCount();
         const Vector<String>& argv = CommandLine();
         
